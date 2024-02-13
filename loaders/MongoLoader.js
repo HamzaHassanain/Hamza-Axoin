@@ -1,13 +1,15 @@
-const loader = require('./_common/fileLoader');
+const loader = require("./_common/fileLoader");
 
 module.exports = class MongoLoader {
-    constructor({ schemaExtension }){
-        this.schemaExtension = schemaExtension
-    }
+  constructor({ schemaExtension }) {
+    this.schemaExtension = schemaExtension;
+  }
 
-    load(){
-        /** load Mongo Models */
-        const models = loader(`./managers/entities/**/*.${this.schemaExtension}`);;
-        return models
-    }
-}
+  load() {
+    /** load Mongo Models */
+
+    const models = loader(`./managers/entities/**/*.${this.schemaExtension}`);
+    console.log(this.schemaExtension, models, "models");
+    return models;
+  }
+};
