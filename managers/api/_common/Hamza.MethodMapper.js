@@ -1,6 +1,9 @@
 const controllers = require("./Hamza.controllers");
-
 module.exports = {
-  "get-users": [controllers.GetUsers],
-  "get-user": [controllers.Authenticate, controllers.GetUser],
+  "get-admins": [controllers.Authenticate, controllers.GetAdmins],
+
+  "new-admin": [controllers.Authenticate, controllers.NewAdmin],
+
+  "admin-login": [controllers.LogInAdmin],
+  "admin-logout": [controllers.Authenticate, controllers.LogOutAdmin],
 };

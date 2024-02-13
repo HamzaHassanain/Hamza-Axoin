@@ -1,5 +1,7 @@
 module.exports = {
-  users: {
-    get: ["get-users", "get-user"],
+  admins: {
+    get: ["get-admins"],
+    post: ["new-admin", "admin-login"],
+    delete: ["admin-logout"],
   },
 };

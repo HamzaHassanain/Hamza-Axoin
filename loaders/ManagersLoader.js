@@ -7,8 +7,8 @@ const VirtualStack = require("../managers/virtual_stack/VirtualStack.manager");
 const ValidatorsLoader = require("./ValidatorsLoader");
 const MongoLoader = require("./MongoLoader");
 const ResourceMeshLoader = require("./ResourceMeshLoader");
+const Mongo = require("../connect/mongo");
 const utils = require("../libs/utils");
-
 const systemArch = require("../static_arch/main.system");
 const TokenManager = require("../managers/token/Token.manager");
 const SharkFin = require("../managers/shark_fin/SharkFin.manager");
@@ -47,6 +47,8 @@ module.exports = class ManagersLoader {
     const resourceMeshLoader = new ResourceMeshLoader({});
     const mongoLoader = new MongoLoader({ schemaExtension: "mongoModel.js" });
 
+    // connect to db
+    Mongo({ uri: this.config.dotEnv.MONGO_URI });
     this.validators = validatorsLoader.load();
     this.resourceNodes = resourceMeshLoader.load();
     this.mongomodels = mongoLoader.load();
