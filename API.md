@@ -1,0 +1,515 @@
+### Before we begin, we each api endpoints returns a 400 bad request in case of error:
+
+```bash
+    Status: 400 Bad Request
+    Body: {
+        ok: false,
+        errors:[
+            {
+                "cause": "error cause",
+                "status": "error status",
+                "type": "error type"
+            }
+            ...
+        ],
+        message: "error message"
+    }
+```
+
+Here We have 4 Main Error Types:
+
+- `ValidationError` : This error is thrown when the request body is not valid.
+- `AuthError` : This error is thrown when the user is not authorized to access the resource.
+- `NotFoundError` : This error is thrown when the resource is not found.
+- `ServerError` : This error is thrown when there is an internal server error.
+
+## Admins API Endpoints
+
+### `GET /api/admins/get-admins`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            admins: [
+                {
+                    _id : string,
+                    adminName : string,
+                },
+                .......
+            ]
+        }
+    }
+
+```
+
+### `POST /api/admins/new-admin`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+    Body: {
+        adminName : string,
+        password : string,
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            admin: {
+                _id : string,
+                adminName : string,
+            }
+        }
+    }
+
+
+```
+
+### `POST /api/admins/admin-login`
+
+```bash
+
+Request:
+    Body: {
+        adminName : string,
+        password : string,
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            admin: {
+                _id : string,
+                adminName : string,
+                Token: string
+            },
+        }
+    }
+
+
+
+```
+
+### `POST /api/admins/admin-logout`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+    }
+
+
+```
+
+## Schools API Endpoints
+
+### `GET /api/schools/get-schools`
+
+```bash
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            schools: [
+                {
+                    _id : string,
+                    name : string,
+                    classrooms: [
+                        {
+                            _id : string,
+                            name : string,
+                        },
+                        .......
+                    ]
+                },
+                .......
+            ]
+        }
+    }
+
+```
+
+### `GET /api/schools/get-school/?id=schoolId`
+
+```bash
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            school: {
+                _id : string,
+                name : string,
+                classrooms: [
+                    {
+                        _id : string,
+                        name : string,
+                    },
+                    .......
+                ]
+            }
+        }
+    }
+
+
+```
+
+### `POST /api/schools/new-school`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+    Body: {
+        name : string,
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            school: {
+                _id : string,
+                name : string,
+            }
+        }
+    }
+
+```
+
+### `PUT /api/schools/update-school`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+    Body: {
+        _id : string,
+        name : string,
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            school: {
+                _id : string,
+                name : string,
+            }
+        }
+    }
+
+
+
+```
+
+### `DELETE /api/schools/delete-school?id=schoolId`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+    }
+
+```
+
+## Classrooms API Endpoints
+
+### `GET /api/classrooms/get-classrooms`
+
+```bash
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            classrooms: [
+                {
+                    _id : string,
+                    name : string,
+                    school : string,
+                    students: [
+                        {
+                            _id : string,
+                            name : string,
+                        },
+                        .......
+                    ]
+                },
+                .......
+            ]
+        }
+    }
+
+```
+
+### `GET /api/classrooms/get-classroom/?id=classroomId`
+
+```bash
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            classroom: {
+                _id : string,
+                name : string,
+                school : School Object,
+                students: [
+                    {
+                        _id : string,
+                        name : string,
+                    },
+                    .......
+                ]
+            }
+        }
+    }
+```
+
+### `POST /api/classrooms/new-classroom`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+    Body: {
+        name : string,
+        school : string, # schoolId
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            classroom: {
+                _id : string,
+                name : string,
+                school :string,
+            }
+        }
+    }
+
+```
+
+### `PUT /api/classrooms/update-classroom`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+    Body: {
+        name? : string,
+        school? : string, # schoolId
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            classroom: {
+                _id : string,
+                name : string,
+                school :string,
+            }
+        }
+    }
+```
+
+### `DELETE /api/classrooms/delete-classroom?id=classroomId`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+    }
+
+```
+
+## Students API Endpoints
+
+### `GET /api/students/get-students`
+
+```bash
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            students: [
+                {
+                    _id : string,
+                    name : string,
+                    classroom : string,
+                    school : string,
+                },
+                .......
+            ]
+        }
+    }
+
+```
+
+### `GET /api/students/get-student/?id=studentId`
+
+```bash
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            student: {
+                _id : string,
+                name : string,
+                classroom : Classroom Object,
+                school : School Object,
+            }
+        }
+    }
+```
+
+### `POST /api/students/new-student`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+    Body: {
+        name : string,
+        classroom : string, # classroomId
+        school : string, # schoolId
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            student: {
+                _id : string,
+                name : string,
+                classroom :string,
+                school :string,
+            }
+        }
+    }
+```
+
+### `PUT /api/students/update-student?id=studentId`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+
+    Body: {
+        name? : string,
+        classroom? : string, # classroomId
+        school? : string, # schoolId
+    }
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+        data: {
+            student: {
+                _id : string,
+                name : string,
+                classroom :string,
+                school :string,
+            }
+        }
+    }
+```
+
+### `DELETE /api/students/delete-student?id=studentId`
+
+```bash
+
+Request:
+    Headers:
+        Authorization: Bearer <token>
+
+Response:
+    Status: 200 OK
+    Body: {
+        ok: true,
+        message: "ok",
+    }
+
+```
