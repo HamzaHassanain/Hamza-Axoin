@@ -4,7 +4,9 @@
   "description": "Boilerplate",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "serve": "pm2 start index.js",
+    "kill": "pm2 delete index.js",
     "dev": "nodemon index.js"
   },
   "author": "",
@@ -24,6 +26,7 @@
     "nanoid": "^3.3.2",
     "nodemon": "^3.0.3",
     "oyster-db": "*",
+    "pm2": "^5.3.1",
     "qantra-pineapple": "^1.0.7",
     "request-ip": "^3.3.0",
     "useragent": "^2.3.0"

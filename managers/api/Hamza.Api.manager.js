@@ -54,12 +54,13 @@ module.exports = class HamzaApiHandler extends ApiHandler {
           };
       }
     } catch (err) {
-      console.log(`error`, err.message);
+      console.log(`error`, err.status);
       result = {};
+
       result.errors = [err];
-      return this.managers.responseDispatcher.dispatch(res, {
+      return this.managers.responseDispatcher.dispatch(res.status(err.status), {
         ok: false,
-        data: result,
+        errors: result.errors,
         message: `${fnName} failed to execute`,
       });
     }

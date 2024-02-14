@@ -1,5 +1,9 @@
-const Admin = require("../../models/Hamza.Admin.Model");
-const { AuthError, NotFoundError, ServerError } = require("./Hamza.errors");
+const Admin = require("../../../models/Hamza.Admin.Model");
+const {
+  AuthError,
+  NotFoundError,
+  ServerError,
+} = require("../../../../_common/Hamza.errors");
 module.exports.GetAdmins = async (req, res) => {
   try {
     const admins = await Admin.find();

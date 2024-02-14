@@ -23,4 +23,18 @@ SchoolSchema.pre("save", async function (next) {
     return next(err);
   }
 });
+
+SchoolSchema.pre("deleteOne", { document: true }, async function (next) {
+  // delete all classrooms in the school
+  try {
+    const classrooms = await this.model("Classroom").find({ school: this._id });
+    for (let i = 0; i < classrooms.length; i++) {
+      await classrooms[i].deleteOne();
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = mongoose.model("School", SchoolSchema);

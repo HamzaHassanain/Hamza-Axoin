@@ -1,23 +1,11 @@
 const getParamNames = require("./_common/getParamNames");
-// const HAMZA_methods = require("./_common/HAMZA_methods.js");
-/**
- * scans all managers for exposed methods
- * and makes them available through a handler middleware
- */
 
 module.exports = class ApiHandler {
   /**
    * @param {object} containing instance of all managers
    * @param {string} prop with key to scan for exposed methods
    */
-  // HAMZA_methodMatrix = {
-  //   users: {
-  //     get: ["getUsers"],
-  //   },
-  // };
-  // HAMZA_methodMapper = {
-  //   getUsers: [HAMZA_methods.Users.authKEDA, HAMZA_methods.Users.getUsers],
-  // };
+
   constructor({ config, cortex, cache, managers, mwsRepo, prop }) {
     this.config = config;
     this.cache = cache;
@@ -202,61 +190,4 @@ module.exports = class ApiHandler {
     });
     hotBolt.run();
   }
-
-  // async HAMZA_mw(req, res, next) {
-  //   // console.log(req);
-  //   let method = req.method?.toLowerCase();
-  //   let moduleName = req.params?.moduleName?.toLowerCase();
-  //   let context = req.params?.context?.toLowerCase();
-  //   let fnName = req.params?.fnName;
-
-  //   let moduleMatrix = this.HAMZA_methodMatrix[moduleName]; // customized to hamza
-
-  //   /** validate module */
-  //   if (!moduleMatrix)
-  //     return this.managers.responseDispatcher.dispatch(res, {
-  //       ok: false,
-  //       message: `module ${moduleName} not found`,
-  //     });
-
-  //   /** validate method */
-  //   if (!moduleMatrix[method]) {
-  //     return this.managers.responseDispatcher.dispatch(res, {
-  //       ok: false,
-  //       message: `unsupported method ${method} for ${moduleName}`,
-  //     });
-  //   }
-
-  //   if (!moduleMatrix[method].includes(fnName)) {
-  //     return this.managers.responseDispatcher.dispatch(res, {
-  //       ok: false,
-  //       message: `unable to find function ${fnName} with method ${method}`,
-  //     });
-  //   }
-
-  //   let result = {};
-  //   try {
-  //     for (const method in this.HAMZA_methodMapper[fnName]) {
-  //       const data = await this.HAMZA_methodMapper[fnName][method](req, res);
-  //       result = {
-  //         ...result,
-  //         ...data,
-  //       };
-  //     }
-  //   } catch (err) {
-  //     console.log(`error`, err.message);
-  //     result = {};
-  //     result.errors = [err];
-  //     return this.managers.responseDispatcher.dispatch(res, {
-  //       ok: false,
-  //       data: result,
-  //       message: `${fnName} failed to execute`,
-  //     });
-  //   }
-  //   this.managers.responseDispatcher.dispatch(res, {
-  //     ok: true,
-  //     data: result,
-  //     message: "ok",
-  //   });
-  // }
 };

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../../config/index.config");
-const { AuthError } = require("../../managers/api/_common/Hamza.errors");
+const { AuthError } = require("../../_common/Hamza.errors");
 const AdminSchema = new mongoose.Schema({
   adminName: {
     type: String,
